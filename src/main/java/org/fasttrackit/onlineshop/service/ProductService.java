@@ -15,7 +15,7 @@ public class ProductService {
     private static final Logger LOGGER= LoggerFactory.getLogger(ProductService.class);
 
     private final ProductRepository productRepository;
-  //Dependecy injection
+  //Dependency injection
     @Autowired
     public ProductService(ProductRepository productRepository) {
         this.productRepository = productRepository;
