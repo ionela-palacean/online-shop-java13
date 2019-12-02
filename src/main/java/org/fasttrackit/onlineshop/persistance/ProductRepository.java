@@ -15,6 +15,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
      // JPQL syntax (java persistance Query language)
      // @Query("SELECT product FROM Product product WHERE name LIKE '%partialName%'")
     // native MySQL query
+
     @Query(value="SELECT * FROM product WHERE `name` LIKE '%?0%'", nativeQuery = true)
     Page<Product> findByPartialName(String partialName, Pageable pageable);
 
