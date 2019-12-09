@@ -3,7 +3,11 @@ package org.fasttrackit.onlineshop.domain;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.validation.constraints.NotNull;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
 
 @Entity
 public class Product {
@@ -20,6 +24,10 @@ public class Product {
     @NotNull
     private Integer quantity;
     private String imageUrl;
+
+    // "products" is the name of property in Cart where we defined the relationship
+    @ManyToMany(mappedBy="products")
+    private Set<Cart> carts=new HashSet<>();
 
     public Long getId() {
         return id;
@@ -69,6 +77,15 @@ public class Product {
         this.imageUrl = imageUrl;
     }
 
+
+    public Set<Cart> getCarts() {
+        return carts;
+    }
+
+    public void setCarts(Set<Cart> carts) {
+        this.carts = carts;
+    }
+
     @Override
     public String toString() {
         return "Product{" +
@@ -79,5 +96,18 @@ public class Product {
                 ", quantity=" + quantity +
                 ", imageUrl='" + imageUrl + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Product product = (Product) o;
+        return id.equals(product.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }
